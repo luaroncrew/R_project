@@ -16,3 +16,4 @@ shinyUI(fluidPage(
   )
 ))
 
+# Kirill salope
