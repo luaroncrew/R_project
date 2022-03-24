@@ -17,3 +17,35 @@ shinyServer(function(input, output) {
     sapply(sub, summary)
   })
 })
+
+
+quantiQuanti <-function(variable1,variable2){
+  print(ggplot(df, aes(x=variable1, y=variable2)) + geom_point())  
+  coeff_corel <- cor(x = variable1, y = variable2,use = "complete.obs")
+}
+
+  
+qualiQuali <- function(varname_1,varname_2){
+  tab <- cprop(table(variable1,variable2))
+  print(barplot(tab))
+}
+  
+
+QualiQuanti <- function(varname_1,varname_2){
+  return(boxplot(varname_1 ~ varname_2))
+}
+lien2Variables <- function(varname_1,varname_2){
+  if (is.numeric(varname_1) & is.numeric(varname_2))
+  {
+    return(quantiQuanti(varname_1,varname_2))
+  }
+  if (!is.numeric(varname_1) & is.numeric(varname_2))
+  {
+    return(QualiQuanti(varname_1,varname_2))
+  }
+  if (!is.numeric(varname_1) & !is.numeric(varname_2))
+  {
+    return(qualiQuali(varname_1,varname_2))
+  }
+  
+}
