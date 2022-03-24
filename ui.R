@@ -1,19 +1,29 @@
-library(shiny)
 
-shinyUI(fluidPage(
-  titlePanel("Première application"),
+library(datasets)
+
+# Use a fluid Bootstrap layout
+fluidPage(    
   
-  sidebarLayout(
+  # Give the page a title
+  titlePanel("Analyse de téléphones"),
+  
+  # Generate a row with a sidebar
+  sidebarLayout(      
+    
+    # Define the sidebar with one input
     sidebarPanel(
-      selectInput("choix", "Abscisse", c("wt", "hp", "disp")),
-      textOutput("resumeMpg"),
-      textOutput("resumeVar"),
-      tableOutput("tableau")
+      helpText("Choisissez vos variables"),
+      selectInput("varname_1", "Variable 1", 
+                  choices=colnames(WorldPhones)),
+      selectInput("varname_2", "Variable 2", 
+                  choices=colnames(WorldPhones)),
+      hr()
     ),
+    
+    # Create a spot for the barplot
     mainPanel(
-      plotOutput("nuage")
+      plotOutput("phonePlot")  
     )
+    
   )
-))
-
-# Kirill salope
+)
