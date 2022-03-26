@@ -1,9 +1,14 @@
 
 dataset <- read.csv('tel.csv', sep=";", dec=".")
-
+dataset = dataset[,-1]
+library(shinyWidgets)
 # Use a fluid Bootstrap layout
 fluidPage(
-  # Give the page a title
+  
+  #style params
+  setBackgroundColor(
+    color = "#d6d4e0",
+  ),
   titlePanel("Analyse de telephones"),
     tabsetPanel(
       tabPanel("Croisement de variables",

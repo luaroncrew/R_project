@@ -8,6 +8,8 @@ dataset$Marque <- as.factor(dataset$Marque)
 dataset$Tel <- as.factor(dataset$Tel)
 dataset$Affichage <- as.factor(dataset$Affichage)
 dataset$Type_coeur <- as.factor(dataset$Type_coeur)
+dataset$RAM <- as.factor(dataset$RAM)
+
 
 lien2Variables <- function(varname_1,varname_2){
   if (is.numeric(varname_1) & is.numeric(varname_2))
@@ -41,9 +43,11 @@ quantiQuanti <-function(variable1,variable2){
 
 qualiQuali <- function(varname_1,varname_2){
   a=colnames(dataset$varname1)
-  return(barplot(table(varname_1, varname_2), main=paste("Graphique en barre entre les variables 1 et 2")
+  return(barplot(table(varname_1, varname_2),
+                 main=paste("Graphique en barre entre les variables 1 et 2"),
+                 col = c("#eb8060", "#b9e38d", "#a1e9f0", "#d9b1f0", "#fcafa9", "#ffdfb0")
                  
-  )
+        )
   )
 }
 
@@ -63,11 +67,12 @@ get_single_plot <- function(chosen_variable){
   if (is.numeric(chosen_variable)){
     return(hist(chosen_variable))
   }
-  return(barplot(table(chosen_variable)))
+  return(barplot(table(chosen_variable),
+                 col = c("#eb8060", "#b9e38d", "#a1e9f0", "#d9b1f0", "#fcafa9", "#ffdfb0")))
   
 }
 
-# Define a server for the Shiny app
+
 function(input, output) {
   output$single_analysis_plot <- renderPlot({
     plot = get_single_plot(dataset[,input$choice])
