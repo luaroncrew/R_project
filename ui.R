@@ -2,28 +2,42 @@
 dataset <- read.csv('tel.csv', sep=";", dec=".")
 
 # Use a fluid Bootstrap layout
-fluidPage(    
-  
+fluidPage(
   # Give the page a title
-  titlePanel("Analyse de téléphones"),
-  
-  # Generate a row with a sidebar
-  sidebarLayout(      
-    
-    # Define the sidebar with put fields
-    sidebarPanel(
-      helpText("Choisissez vos variables"),
-      selectInput("varname_1", "Variable 1", 
-                  choices=colnames(dataset)),
-      selectInput("varname_2", "Variable 2", 
-                  choices=colnames(dataset)),
-      hr()
-    ),
-    
-    # Create a spot for the barplot
-    mainPanel(
-      plotOutput("telplot")  
-    )
-    
+  titlePanel("Analyse de telephones"),
+    tabsetPanel(
+      tabPanel("Croisement de variables",
+          titlePanel("Selectionnez des variables pour en faire croisement"),
+          sidebarLayout(      
+            sidebarPanel(
+              helpText("Choisissez vos variables"),
+                selectInput("varname_1", "Variable 1", 
+                             choices=colnames(dataset)),
+                selectInput("varname_2", "Variable 2", 
+                             choices=colnames(dataset)),
+                 hr()
+               ),
+               mainPanel(
+                 plotOutput("telplot")  
+               )
+             )
+      ),
+      tabPanel("Analyse d'une variable ",
+          titlePanel("Selectionnez une variables pour analyser"),
+          sidebarLayout(      
+            sidebarPanel(
+              helpText("Choisissez votre variable"),
+              selectInput("choice", "Variable", 
+                          choices=colnames(dataset)),
+              hr()
+            ),
+            mainPanel(
+              plotOutput("single_analysis_plot")  
+            )
+          )
+      )
   )
 )
+
+
+
