@@ -2,6 +2,7 @@
 dataset <- read.csv('tel.csv', sep=";", dec=".")
 dataset = dataset[,-1]
 library(shinyWidgets)
+library(shinydashboard)
 # Use a fluid Bootstrap layout
 fluidPage(
   
@@ -28,21 +29,28 @@ fluidPage(
              )
       ),
       tabPanel("Analyse d'une variable ",
-          titlePanel("Selectionnez une variables pour analyser"),
-          sidebarLayout(      
-            sidebarPanel(
-              helpText("Choisissez votre variable"),
-              selectInput("choice", "Variable", 
-                          choices=colnames(dataset)),
-              hr()
-            ),
+          titlePanel("Selectionnez une variable pour analyser en appuiyant sur le bouton"),
+          
+          br(),
+          dropdownButton(
+            selectInput(inputId = 'choice',
+                        label = 'Variable X',
+                        choices = names(dataset)),
+            
+            
+            circle = FALSE, status = "info",
+            icon = icon("bars"), width = "300px",
+            
+            tooltip = tooltipOptions(title = "Cliquez pour choisir !")
+          ),
+          br(),
             mainPanel(
               plotOutput("single_analysis_plot")  
             )
           )
       )
   )
-)
+
 
 
 
