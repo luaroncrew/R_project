@@ -10,6 +10,13 @@ dataset$Affichage <- as.factor(dataset$Affichage)
 dataset$Type_coeur <- as.factor(dataset$Type_coeur)
 dataset$RAM <- as.factor(dataset$RAM)
 
+color_palette = c("#f9d5e5",
+                  "#eeac99",
+                  "#e06377",
+                  "#c83349",
+                  "#5b9aa0",
+                  "#b8a9c9",
+                  "#622569")
 
 lien2Variables <- function(varname_1,varname_2){
   if (is.numeric(varname_1) & is.numeric(varname_2))
@@ -36,7 +43,7 @@ lien2Variables <- function(varname_1,varname_2){
 
 
 quantiQuanti <-function(variable1,variable2){
-  return(plot(variable1, variable2))
+  return(plot(variable1, variable2, col = "#622569"))
   coeff_corel <- cor(x = variable1, y = variable2,use = "complete.obs")
 }
 
@@ -45,7 +52,8 @@ qualiQuali <- function(varname_1,varname_2){
   a=colnames(dataset$varname1)
   return(barplot(table(varname_1, varname_2),
                  main=paste("Graphique en barre entre les variables 1 et 2"),
-                 col = c("#eb8060", "#b9e38d", "#a1e9f0", "#d9b1f0", "#fcafa9", "#ffdfb0")
+                 col = color_palette,
+                 legend=TRUE
                  
         )
   )
@@ -65,10 +73,9 @@ QualiQuanti <- function(varname_1,varname_2){
 
 get_single_plot <- function(chosen_variable){
   if (is.numeric(chosen_variable)){
-    return(hist(chosen_variable))
+    return(hist(chosen_variable, col = color_palette))
   }
-  return(barplot(table(chosen_variable),
-                 col = c("#eb8060", "#b9e38d", "#a1e9f0", "#d9b1f0", "#fcafa9", "#ffdfb0")))
+  return(barplot(table(chosen_variable), col = color_palette))
   
 }
 
